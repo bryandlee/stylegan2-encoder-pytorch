@@ -7,10 +7,10 @@ Implementation of **In-Domain GAN Inversion for Real Image Editing** based on **
 
 #### Domain-Guided Encoder
 
-**0k iter**
+**0k iter**\
 <img src="./imgs/0k.png" width="720">
 
-**160k iter**
+**160k iter**\
 <img src="./imgs/160k.png" width="720"> 
 
 
