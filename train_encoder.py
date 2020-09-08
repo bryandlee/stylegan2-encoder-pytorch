@@ -108,7 +108,6 @@ def train(args, loader, encoder, generator, discriminator, e_optim, d_optim, dev
     r1_loss = torch.tensor(0.0, device=device)
     loss_dict = {}
     vgg_loss = VGGLoss(device=device)
-    l1_loss = nn.L1Loss().to(device)
 
     accum = 0.5 ** (32 / (10 * 1000))
 
@@ -138,7 +137,8 @@ def train(args, loader, encoder, generator, discriminator, e_optim, d_optim, dev
         real_img = real_img.to(device)
         
         latents = encoder(real_img)
-        recon_img, _ = generator([latents], 
+        recon_img, _ = generator([latents],
+                                 input_is_latent=True,
                                  truncation=truncation,
                                  truncation_latent=trunc,
                                  randomize_noise=False)
@@ -176,6 +176,7 @@ def train(args, loader, encoder, generator, discriminator, e_optim, d_optim, dev
 
         latents = encoder(real_img)
         recon_img, _ = generator([latents], 
+                                 input_is_latent=True,
                                  truncation=truncation,
                                  truncation_latent=trunc,
                                  randomize_noise=False)
@@ -183,14 +184,14 @@ def train(args, loader, encoder, generator, discriminator, e_optim, d_optim, dev
         recon_vgg_loss = vgg_loss(recon_img, real_img)
         loss_dict["vgg"] = recon_vgg_loss * args.vgg
 
-        recon_l1_loss = l1_loss(recon_img, real_img)
-        loss_dict["l1"] = recon_l1_loss * args.l1
+        recon_l2_loss = F.mse_loss(recon_img, real_img)
+        loss_dict["l2"] = recon_l2_loss * args.l2
         
         recon_pred = discriminator(recon_img)
         adv_loss = g_nonsaturating_loss(recon_pred) * args.adv
         loss_dict["adv"] = adv_loss
 
-        e_loss = recon_vgg_loss + recon_l1_loss + adv_loss 
+        e_loss = recon_vgg_loss + recon_l2_loss + adv_loss 
         loss_dict["e_loss"] = e_loss
 
         
@@ -200,21 +201,21 @@ def train(args, loader, encoder, generator, discriminator, e_optim, d_optim, dev
 
         e_loss_val = loss_dict["e_loss"].item()
         vgg_loss_val = loss_dict["vgg"].item()
-        l1_loss_val = loss_dict["l1"].item()
+        l2_loss_val = loss_dict["l2"].item()
         adv_loss_val = loss_dict["adv"].item()
         d_loss_val = loss_dict["d"].item()
         r1_val = loss_dict["r1"].item()
 
         pbar.set_description(
             (
-                f"e: {e_loss_val:.4f}; vgg: {vgg_loss_val:.4f}; l1: {l1_loss_val:.4f}; adv: {adv_loss_val:.4f}; d: {d_loss_val:.4f}; r1: {r1_val:.4f}; "
+                f"e: {e_loss_val:.4f}; vgg: {vgg_loss_val:.4f}; l2: {l2_loss_val:.4f}; adv: {adv_loss_val:.4f}; d: {d_loss_val:.4f}; r1: {r1_val:.4f}; "
             )
         )
 
         if SummaryWriter and args.tensorboard:
             logger.add_scalar('E_loss/total', e_loss_val, i)
             logger.add_scalar('E_loss/vgg', vgg_loss_val, i)
-            logger.add_scalar('E_loss/l1', l1_loss_val, i)
+            logger.add_scalar('E_loss/l2', l2_loss_val, i)
             logger.add_scalar('E_loss/adv', adv_loss_val, i)
             logger.add_scalar('D_loss/adv', d_loss_val, i)
             logger.add_scalar('D_loss/r1', r1_val, i)            
@@ -257,7 +258,7 @@ if __name__ == "__main__":
     parser.add_argument("--local_rank", type=int, default=0)
 
     parser.add_argument("--vgg", type=float, default=1.0)
-    parser.add_argument("--l1", type=float, default=1.0)
+    parser.add_argument("--l2", type=float, default=1.0)
     parser.add_argument("--adv", type=float, default=0.05)   
     parser.add_argument("--r1", type=float, default=10)
     parser.add_argument("--d_reg_every", type=int, default=16)
