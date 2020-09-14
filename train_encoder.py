@@ -311,7 +311,7 @@ if __name__ == "__main__":
         
         try:
             ckpt_name = os.path.basename(args.e_ckpt)
-            args.start_iter = int(os.path.splitext(ckpt_name)[0])
+            args.start_iter = int(os.path.splitext(ckpt_name.split('_')[-1])[0])
         except ValueError:
             pass     
 
