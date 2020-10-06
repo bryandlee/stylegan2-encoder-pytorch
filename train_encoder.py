@@ -68,7 +68,7 @@ class VGGLoss(nn.Module):
         super().__init__()
         
         feature_layers = (2, 7, 12, 21, 30)
-        self.weights = (1.0/32, 1.0/16, 1.0/8, 1.0/4, 1.0)  
+        self.weights = (1.0, 1.0, 1.0, 1.0, 1.0)  
 
         vgg = torchvision.models.vgg19(pretrained=True).features
         
