@@ -27,10 +27,10 @@ interpolate.ipynb
 **Domain-Guided Encoder (Initial projection)**\
 <img src="./imgs/interpolation_domain_guided_encoder.png" width="360">
 
-**In-Domain Inversion (500steps)**\
+**In-Domain Inversion (500 steps)**\
 <img src="./imgs/interpolation_idinversion_500steps.png" width="360">
 
-**Inperpolation**\
+**Inperpolation Result**\
 <img src="./imgs/interpolation_results.png" width="960">
 
 
