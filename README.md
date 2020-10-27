@@ -16,7 +16,11 @@ python train_encoder.py
 
 **1M iter**\
 <img src="./imgs/1M.png" width="960">\
-[[checkpoint]](https://drive.google.com/file/d/1QQuZGtHgD24Dn5E21Z2Ik25EPng58MoU/view?usp=sharing)
+[[checkpoint](https://drive.google.com/file/d/1QQuZGtHgD24Dn5E21Z2Ik25EPng58MoU/view?usp=sharing)]
+
+**Note:** The encoder architecture and loss weights are different from the original implemetation.
+
+
 
 ## Interpolation
 
@@ -33,6 +37,12 @@ interpolate.ipynb
 **Inperpolation Result**\
 <img src="./imgs/interpolation_results.png" width="960">
 
+## Encoder + Model Interpolation
+[[paper](https://arxiv.org/abs/2010.05334)] [[Naver Webtoon Model](https://github.com/bryandlee/naver-webtoon-faces#stylegan2)]
+
+<img src="./imgs/face2webtoon.png" width="960">
 
 
-**Note:** The encoder architecture and loss weights are different from the original implemetation.
+
+
+
