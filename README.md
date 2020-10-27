@@ -38,7 +38,7 @@ interpolate.ipynb
 <img src="./imgs/interpolation_results.png" width="960">
 
 ## Encoder + Model Interpolation
-[[paper](https://arxiv.org/abs/2010.05334)] [[Naver Webtoon Model](https://github.com/bryandlee/naver-webtoon-faces#stylegan2)]
+[[Paper](https://arxiv.org/abs/2010.05334)] [[Naver Webtoon Model](https://github.com/bryandlee/naver-webtoon-faces#stylegan2)]
 
 <img src="./imgs/face2webtoon.png" width="960">
 
