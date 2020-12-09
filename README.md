@@ -16,7 +16,7 @@ python train_encoder.py
 
 **1M iter**\
 <img src="./imgs/1M.png" width="960">\
-[[checkpoint](https://drive.google.com/file/d/1QQuZGtHgD24Dn5E21Z2Ik25EPng58MoU/view?usp=sharing)]
+[[encoder checkpoint](https://drive.google.com/file/d/1QQuZGtHgD24Dn5E21Z2Ik25EPng58MoU/view?usp=sharing)] [[generator checkpoint](https://drive.google.com/file/d/1TH77dUsqcq50htIZT6DljFYr4T_ziJli/view)]
 
 **Note:** The encoder architecture and loss weights are different from the original implemetation.
 
